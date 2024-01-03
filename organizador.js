@@ -4,18 +4,26 @@ function crearDiv(){
   myDiv.id = "Materias" + cont;
   myDiv.className = "Materia";
 
-  // Crear el encabezado del contenedor
-  var myDivHeader = document.createElement("div");
-  myDivHeader.id = "Materiasheader" + cont;
-  myDivHeader.className = "MateriaHead";
-  myDivHeader.innerHTML = "Titulo materia";
-
   // Crear el párrafo dentro del contenedor
   var paragraph = document.createElement("p");
-  paragraph.innerHTML = "datos materia";
+  paragraph.innerHTML = "materia ejemplo";
 
-  // Agregar el encabezado y el párrafo al contenedor principal
-  myDiv.appendChild(myDivHeader);
+  var input = document.createElement("div");
+  input.id= "input" + cont;
+  input.className= "circulo_input"
+
+  var output = document.createElement("div");
+  output.id= "output" + cont;
+  output.className= "circulo_output"
+
+  myDiv.addEventListener("click",function(){
+    
+  });
+  
+  myDiv.appendChild(output);
+  
+  myDiv.appendChild(input);
+
   myDiv.appendChild(paragraph);
 
   document.body.appendChild(myDiv);

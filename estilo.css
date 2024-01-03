@@ -1,0 +1,37 @@
+.Materia {
+    position: absolute;
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #14db21;
+    color: #fff;
+    border-radius: 20px;
+    min-height: 10px;
+  }
+  
+  .circulo_input {
+    position: absolute;
+    display: flex;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    width: 20px;
+    height: 20px;
+    background-color: rgb(0, 0, 0); /* Puedes cambiar el color del círculo */
+    border-radius: 50%;
+    z-index: 1;
+    
+  }
+  .circulo_output {
+    position: absolute;
+    display: flex;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255, 255, 255); /* Puedes cambiar el color del círculo */
+    border-radius: 50%;
+    border: 3px solid #000000;
+    z-index: 1;
+  }
