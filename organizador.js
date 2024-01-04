@@ -1,11 +1,13 @@
 let cont=1;
 const select="seleccionado";
 let eselect=null;
+let xo,yo;
 function crearDiv(){
   const CajaTxt=document.getElementById("caja")
   var myDiv = document.createElement("div");
   myDiv.id = "Materias" + cont;
   myDiv.className = "Materia";
+  myDiv.style.zIndex=10;
 
   // Crear el párrafo dentro del contenedor
   var paragraph = document.createElement("p");
@@ -25,13 +27,6 @@ function crearDiv(){
   myDiv.appendChild(input);
 
   myDiv.appendChild(paragraph);
-
-  output.addEventListener("click",function(){
-    let rect=output.getBoundingClientRect();
-    var x = rect.left + rect.width / 2 + window.pageXOffset;
-    var y = rect.top + rect.height / 2 + window.pageYOffset;
-    console.log(x,y)
-  });
 
   myDiv.addEventListener("click",function(){
     if (eselect==null){
@@ -55,7 +50,6 @@ function crearDiv(){
   });
 
   document.body.appendChild(myDiv);
-
   dragElement(myDiv);
   cont++;
 
