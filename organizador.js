@@ -27,8 +27,9 @@ function crearDiv(){
   myDiv.appendChild(paragraph);
 
   output.addEventListener("click",function(){
-    let x= output.offsetLeft + output.offsetWidth / 2;
-    let y= output.offsetTop + output.offsetHeight / 2;
+    let rect=output.getBoundingClientRect();
+    var x = rect.left + rect.width / 2 + window.pageXOffset;
+    var y = rect.top + rect.height / 2 + window.pageYOffset;
     console.log(x,y)
   });
 
