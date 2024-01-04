@@ -1,12 +1,16 @@
 let cont=1;
+const select="seleccionado";
+let eselect=null;
 function crearDiv(){
+  const CajaTxt=document.getElementById("caja")
   var myDiv = document.createElement("div");
   myDiv.id = "Materias" + cont;
   myDiv.className = "Materia";
 
   // Crear el párrafo dentro del contenedor
   var paragraph = document.createElement("p");
-  paragraph.innerHTML = "materia ejemplo";
+  paragraph.innerHTML = CajaTxt.value;
+  CajaTxt.value="";
 
   var input = document.createElement("div");
   input.id= "input" + cont;
@@ -15,16 +19,39 @@ function crearDiv(){
   var output = document.createElement("div");
   output.id= "output" + cont;
   output.className= "circulo_output"
-
-  myDiv.addEventListener("click",function(){
-    
-  });
   
   myDiv.appendChild(output);
   
   myDiv.appendChild(input);
 
   myDiv.appendChild(paragraph);
+
+  output.addEventListener("click",function(){
+    let x= output.offsetLeft + output.offsetWidth / 2;
+    let y= output.offsetTop + output.offsetHeight / 2;
+    console.log(x,y)
+  });
+
+  myDiv.addEventListener("click",function(){
+    if (eselect==null){
+      eselect=document.getElementById(myDiv.id);
+    }else{
+      eselect.classList.remove(select);
+      eselect.style.zIndex="10";
+      eselect=document.getElementById(myDiv.id);
+    }
+    myDiv.style.zIndex="100";
+    myDiv.classList.add(select);
+  });
+  myDiv.addEventListener('dblclick',function(){
+    const color=window.getComputedStyle(myDiv).backgroundColor;
+    if (color=='rgb(0, 255, 0)')
+      myDiv.style.backgroundColor='rgb(255, 100, 0)'
+    if (color=='rgb(255, 100, 0)')
+      myDiv.style.backgroundColor='rgb(255, 0, 0)'
+    if (color=='rgb(255, 0, 0)')
+      myDiv.style.backgroundColor='rgb(0, 255, 0)'
+  });
 
   document.body.appendChild(myDiv);
 
@@ -73,3 +100,9 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+document.addEventListener('keydown',function(){
+  if (eselect!=null && event.key=='Delete'){
+    eselect.remove();
+  }
+});
