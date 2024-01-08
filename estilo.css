@@ -41,13 +41,6 @@
   .seleccionado{
     border: 5px solid #808080;
   }
-  #dibujo{
-    border: 5px solid #808080;
-    width: 1000px;
-    height: 1000px;
-    position: absolute;
-    z-index: 1;
-  }
   #boton{
     position: absolute;
     z-index: 10;

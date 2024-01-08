@@ -1,7 +1,8 @@
+
 let cont=1;
 const select="seleccionado";
 let eselect=null;
-let xo,yo;
+
 function crearDiv(){
   const CajaTxt=document.getElementById("caja")
   var myDiv = document.createElement("div");
@@ -21,6 +22,9 @@ function crearDiv(){
   var output = document.createElement("div");
   output.id= "output" + cont;
   output.className= "circulo_output"
+
+  myDiv.getOutput=output;
+  myDiv.getInput=input;
   
   myDiv.appendChild(output);
   
@@ -38,6 +42,7 @@ function crearDiv(){
     }
     myDiv.style.zIndex="100";
     myDiv.classList.add(select);
+    event.stopPropagation();
   });
   myDiv.addEventListener('dblclick',function(){
     const color=window.getComputedStyle(myDiv).backgroundColor;
@@ -47,6 +52,7 @@ function crearDiv(){
       myDiv.style.backgroundColor='rgb(255, 0, 0)'
     if (color=='rgb(255, 0, 0)')
       myDiv.style.backgroundColor='rgb(0, 255, 0)'
+      event.stopPropagation();
   });
 
   document.body.appendChild(myDiv);
@@ -96,6 +102,15 @@ function dragElement(elmnt) {
   }
 }
 
+// para des-seleccionar la pieza
+document.addEventListener('click',function(){
+  if (eselect!=null){
+    eselect.classList.remove(select);
+    eselect.style.zIndex="10";
+    eselect=null;
+  }
+});
+// para eliminar la pieza seleccionada
 document.addEventListener('keydown',function(){
   if (eselect!=null && event.key=='Delete'){
     eselect.remove();
