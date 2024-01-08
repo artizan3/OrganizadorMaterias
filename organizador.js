@@ -98,12 +98,12 @@ function dragElement(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     // setea la posicion nueva, siempre y cuando este dentro de los limites
-    if (pos3>260){
+    if (pos3>220){
       elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
       elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
     }else{
       elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = 200 + "px";
+      elmnt.style.left = 205 + "px";
     }
   }
 

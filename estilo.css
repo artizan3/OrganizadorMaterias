@@ -41,7 +41,7 @@
   }
 
   .seleccionado{
-    border: 5px solid #808080;
+    border: 5px solid #3c00ff;
   }
   #boton{
     position: relative;
@@ -60,4 +60,14 @@
     left: 0; /* Alinear a la izquierda del documento */
     top: 0; /* Alinear al principio del documento */
     border: 3px solid #000000;
+    z-index: 10;
+  }
+  #lienzo{
+    position: absolute;
+    background-color: rgb(141, 141, 139);
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top:0;
+    z-index: 1;
   }
