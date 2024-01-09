@@ -1,7 +1,11 @@
 
 let cont=1;
 const select="seleccionado";
+const ops="select_op";
+const ins="select_in";
 let eselect=null;
+let op_select=null;
+let in_select=null;
 
 function crearDiv(){
   const CajaTxt=document.getElementById("caja")
@@ -9,7 +13,8 @@ function crearDiv(){
   myDiv.id = "Materias" + cont;
   myDiv.className = "Materia";
   myDiv.style.zIndex=10;
-
+  myDiv.inLines=[];
+  myDiv.outLines=[];
 
   // Crear el párrafo dentro del contenedor
   var paragraph = document.createElement("p");
@@ -19,10 +24,12 @@ function crearDiv(){
   var input = document.createElement("div");
   input.id= "input" + cont;
   input.className= "circulo_input"
+  input.padre=myDiv;
 
   var output = document.createElement("div");
   output.id= "output" + cont;
   output.className= "circulo_output"
+  output.padre=myDiv;
 
   myDiv.getOutput=output;
   myDiv.getInput=input;
@@ -32,7 +39,23 @@ function crearDiv(){
   myDiv.appendChild(input);
 
   myDiv.appendChild(paragraph);
-
+  
+  input.addEventListener('click',function(){
+    if (in_select!=null)
+    in_select.classList.remove(ins);
+    in_select=document.getElementById(input.id);
+    in_select.classList.add(ins);
+    event.stopPropagation();
+    if (op_select!=null)
+      crearLinea();
+  });
+  output.addEventListener('click',function(){
+    if (op_select!=null)
+      op_select.classList.remove(ops);
+    op_select=document.getElementById(output.id);
+    output.classList.add(ops);
+    event.stopPropagation();
+  });
   myDiv.addEventListener("click",function(){
     if (eselect==null){
       eselect=document.getElementById(myDiv.id);
@@ -67,7 +90,6 @@ function crearDiv(){
       myDiv.style.backgroundColor='rgb(0, 255, 0)'
       event.stopPropagation();
   });
-
   document.body.appendChild(myDiv);
   dragElement(myDiv);
   cont++;
@@ -121,6 +143,15 @@ document.addEventListener('click',function(){
     eselect.style.zIndex="10";
     eselect=null;
   }
+  if (op_select!=null){
+    op_select.classList.remove(ops);
+    op_select=null;
+  }
+  if (in_select!=null){
+    in_select.classList.remove(ins);
+    in_select=null;
+  }
+
 });
 // para eliminar la pieza seleccionada
 document.addEventListener('keydown',function(){
@@ -128,3 +159,37 @@ document.addEventListener('keydown',function(){
     eselect.remove();
   }
 });
+function crearLinea(){
+  let dx=deltaXcalc();
+  let dy=deltaYcalc();
+  let longitud=Math.sqrt(dx**2+dy**2);
+  let angulo=(Math.atan(dx/dy)*180)/Math.PI;
+  console.log(dx,dy,longitud,angulo)
+  var line = document.createElement("div");
+  line.style.width = longitud + "px";//longitud
+  line.style.height = 5 + "px";//ancho
+  line.style.backgroundColor = "blue";//color
+  line.style.transformOrigin = "0% 50%";//default
+  line.style.transform = "rotate(" + angulo + "deg)";//inclinacion
+  line.style.top=op_select.padre.style.top;
+  line.style.left=op_select.padre.style.left;
+  line.style.zIndex="10"
+  line.style.position="relative";
+  document.body.appendChild(line);
+}
+function deltaXcalc(){
+  let val1=parseInt(op_select.padre.style.left,10);
+  let val2=op_select.padre.offsetWidth/2;
+  let x0=val1+val2;
+  let val3=parseInt(in_select.padre.style.left,10);
+  let val4=in_select.padre.offsetWidth/2;
+  let x1=val3+val4;
+  return Math.abs(x0-x1);
+}
+function deltaYcalc(){
+  let val1=parseInt(op_select.padre.style.top,10);
+  let val2=op_select.padre.offsetHeight;
+  let y0=val1+val2
+  let y1=parseInt(in_select.padre.style.top,10);
+  return Math.abs(y0-y1);
+}
